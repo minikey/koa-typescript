@@ -3,7 +3,8 @@ import * as glob from 'glob';
 import * as path from 'path';
 import * as Koa from 'koa';
 
-const svcPath = 'service/**/*_svc.js';
+const svcPath = 'service/*_svc.js';
+const controllerPath = 'controller/*_co.js';
 const cwd = process.cwd();
 
 function thenGlob(path: string, options: any = {
@@ -29,10 +30,38 @@ export function svcLoader(app: Koa) {
   let reg = /\/(.+).js$/
   return thenGlob(svcPath).then((files: Array<string>) => {
     files.forEach(file => {
-      let name = file.match(reg)[1];
+      let name: string = file.match(reg)[1];
       svcs[name] = require(path.resolve(cwd, file));
     });
   }).then(() => {
     app.context.svcs = svcs;
   });
+}
+
+/**
+ * 
+ * @param app 动态加载Controller
+ */
+export function conLoader(app: Koa) {
+  let controllers = {};
+  return thenGlob(controllerPath).then((files: Array<string>) => {
+    files.forEach((file) => {
+      let Base = require(path.resolve(cwd, file)).default;
+      let instance = new Base();
+      controllers[instance.controllerName] = instance;
+    });
+  }).then(() => {
+    Object.keys(controllers).forEach((key) => {
+      let controller = controllers[key];
+      controller['actions'].forEach((action) => {
+        let router = app.context.router;
+        router[action.method].call(router, path.join(`/${controller.controllerName}`, action.path), action.action);
+      });
+    });;
+    app.context.controllers = controllers;
+  });
+}
+
+export function loader(app: Koa) {
+  return Promise.all([svcLoader(app), conLoader(app)]);
 }

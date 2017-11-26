@@ -4,7 +4,7 @@
    "description": "cdn上传轻量版",
    "main": "index.js",
    "scripts": {
-      "build": "tsc --pretty --outDir ./dest",
+      "build": "rm -rf ./dest && tsc --pretty --outDir ./dest",
       "dev": "tsc --pretty --outDir ./dest -w",
       "start": "ts-node src/index.ts"
    },

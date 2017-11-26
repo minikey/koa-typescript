@@ -15,5 +15,9 @@ declare module 'koa' {
     db: any;
 
     svcs: any;
+
+    router: any;
+
+    controllers: any;
   }
 }

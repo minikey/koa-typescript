@@ -1,0 +1,37 @@
+{
+   "name": "cdnlight",
+   "version": "1.0.0",
+   "description": "cdn上传轻量版",
+   "main": "index.js",
+   "scripts": {
+      "build": "tsc --pretty --outDir ./dest",
+      "dev": "tsc --pretty --outDir ./dest -w",
+      "start": "ts-node src/index.ts"
+   },
+   "author": "amin",
+   "license": "ISC",
+   "devDependencies": {
+      "@types/glob": "^5.0.33",
+      "@types/koa": "^2.0.41",
+      "@types/koa-bodyparser": "^3.0.26",
+      "@types/koa-session": "^3.0.6",
+      "@types/koa-static": "^3.0.2",
+      "@types/node": "^8.0.29",
+      "ts-node": "3.3.0",
+      "tslint": "^5.8.0",
+      "typescript": "2.5.2"
+   },
+   "dependencies": {
+      "glob": "^7.1.2",
+      "koa": "^2.4.1",
+      "koa-better-router": "^2.1.1",
+      "koa-bodyparser": "^4.2.0",
+      "koa-nunjucks-render2": "^1.0.2",
+      "koa-session": "^5.5.1",
+      "koa-session-memory": "^1.0.2",
+      "koa-static": "^4.0.2",
+      "reflect-metadata": "^0.1.10",
+      "sqlite3": "^3.1.10",
+      "typeorm": "0.1.6"
+   }
+}

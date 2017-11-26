@@ -56,6 +56,11 @@ export function conLoader(app: Koa) {
       controller['actions'].forEach((action) => {
         let router = app.context.router;
         router[action.method].call(router, path.join(`/${controller.controllerName}`, action.path), action.action);
+        
+        // 如果是首页，可以不用输入 /index/
+        if ('index' === controller.controllerName) {
+          router[action.method].call(router, action.path, action.action);
+        }
       });
     });;
     app.context.controllers = controllers;

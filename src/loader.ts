@@ -7,6 +7,11 @@ const svcPath = 'service/*_svc.js';
 const controllerPath = 'controller/*_co.js';
 const cwd = process.cwd();
 
+/**
+ * 加载指定的文件
+ * @param path 
+ * @param options 
+ */
 function thenGlob(path: string, options: any = {
   cwd
 }) {
